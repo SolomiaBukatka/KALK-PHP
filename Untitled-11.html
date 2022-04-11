@@ -1,0 +1,73 @@
+<!DOCKTYPE html>
+<html>
+    <head>
+        <meta charset = "UTF-8">
+        <title>Калькулятор</title>
+    </head>
+    <body>
+        <form action="" method="post" style="text-align:center; margin-top:20px">
+            <input type="number" name="number1" placeholder="Введіть число">
+            <input type="number" name="number2" placeholder="Введіть число">
+
+                <input type="radio" name="operator" placeholder="plus">+
+                <input type="radio" name="operator" placeholder="minus">-
+                <input type="radio" name="operator" placeholder="umn">*
+                <input type="radio" name="operator" placeholder="razdel">/
+
+            <input type="submit" name="send" value="Розрахувати">
+        </form>
+        <div style="text-align:center; margin-top:20px">
+
+        <?php
+        $number1=$_POST["number1"];
+        $number2=$_POST["number2"];
+
+            if (isset($_POST["send"])){
+                if(!empty($_POST["number1"]) && $_POST["nember2"]){
+                if($_POST["operator"]=="plus"){
+                    $res=$number1+number2;
+                    echo "Результат: ".$res;
+                }
+                elseif($_POST["operator"]=="minus"){
+                    $res=$number1-number2;
+                    echo "Результат: ".$res;
+                }
+                elseif($_POST["operator"]=="umn"){
+                    $res=$number1*number2;
+                    echo "Результат: ".$res;
+                }
+                elseif($_POST["operator"]=="razdel" && $number2 == 0){
+                    echo "Ділити на 0 не можна";}
+                
+                elseif($_POST["operator"]=="razdel"){
+                    $res=$number1/number2;
+                    echo "Результат: ".$res;
+                }
+
+            }
+            else{
+                echo "Введіть число";
+            }
+
+        }
+       
+        
+        $file = 'rezult.txt';
+        $somecontent = $res;
+        if (is_writable($file)) {
+            if (!$handle = fopen($file, 'a')) {
+                 echo "Не можу відкрити файл";
+                 exit;
+            }
+        if (fwrite($handle, $somecontent) === FALSE) {
+        echo "Неможливо записати результат";
+        exit;
+        }
+        echo "Ура! Результат обчислень записано в калькулятор";
+        fclose($handle);
+        } else {
+            echo "Файл $file недоступний для запису"; }
+?>
+</div>
+</body>
+</html>
